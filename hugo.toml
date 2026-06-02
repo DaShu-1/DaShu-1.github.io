@@ -1,0 +1,41 @@
+baseURL = "https://dashu-1.github.io/"
+[languages.zh-cn]
+  locale = "zh-cn"
+title = "111"
+theme = "m10c"
+paginate = 8
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "首页"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/tags/"
+    weight = 2
+  [[menu.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about/"
+    weight = 3
+
+[params]
+  author = "也许是大鼠"
+  description = "路漫漫其修远兮，吾将上下而求索..."
+  menu_item_separator = " - "
+  avatar = "/img/1046.png"
+
+  [[params.social]]
+    icon = "brand-github"
+    name = "Github"
+    url = "https://github.com/DaShu-1"
+
+  [params.style]
+    darkestColor = "#242930"
+    darkColor = "#353b43"
+    lightColor = "#afbac4"
+    lightestColor = "#ffffff"
+    primaryColor = "#57cc8a"
