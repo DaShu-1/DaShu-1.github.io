@@ -1,9 +1,8 @@
 baseURL = "https://dashu-1.github.io/"
-[languages.zh-cn]
-  locale = "zh-cn"
 title = "111"
 theme = "m10c"
 paginate = 8
+defaultContentLanguage = "zh-cn"
 
 [menu]
   [[menu.main]]
