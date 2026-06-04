@@ -1,29 +1,30 @@
 baseURL = "https://dashu-1.github.io/"
-title = "111"
+title = "Jerry"
 theme = "m10c"
-paginate = 8
+[pagination]
+  pagerSize = 8
 defaultContentLanguage = "zh-cn"
 
 [menu]
   [[menu.main]]
     identifier = "home"
-    name = "首页"
+    name = "Home"
     url = "/"
     weight = 1
   [[menu.main]]
     identifier = "tags"
-    name = "标签"
+    name = "Tags"
     url = "/tags/"
     weight = 2
   [[menu.main]]
     identifier = "about"
-    name = "关于"
+    name = "About"
     url = "/about/"
     weight = 3
 
 [params]
-  author = "也许是大鼠"
-  description = "路漫漫其修远兮，吾将上下而求索..."
+  author = "Jerry"
+  description = "The way is long; still I will seek, high and low."
   menu_item_separator = " - "
   avatar = "/img/1046.png"
 
@@ -38,3 +39,6 @@ defaultContentLanguage = "zh-cn"
     lightColor = "#afbac4"
     lightestColor = "#ffffff"
     primaryColor = "#57cc8a"
+
+[markup.goldmark.renderer]
+  unsafe = true

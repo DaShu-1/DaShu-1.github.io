@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Locale | default "en-us" }}">
+  <head>
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} // {{ .Site.Title }}{{ end }}</title>
+    <link rel="shortcut icon" href="{{ .Site.Params.favicon | default "/favicon.ico" }}" />
+    <meta charset="utf-8" />
+    {{ hugo.Generator }}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="{{ .Site.Params.author | default "John Doe" }}" />
+    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ .Description }}{{ end }}" />
+    {{ $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | css.Sass | resources.Minify | resources.Fingerprint -}}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
+    {{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+    {{ end }}
+
+    {{ template "_internal/google_analytics.html" . }}
+    {{ template "_internal/twitter_cards.html" . }}
+    {{ template "_internal/opengraph.html" . }}
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="{{ "" | relURL }}"><img class="app-header-avatar" src="{{ .Site.Params.avatar | default "avatar.jpg" | relURL }}" alt="{{ .Site.Params.author | default "John Doe" }}" /></a>
+      <span class="app-header-title">{{ .Site.Title }}</span>
+      {{- with .Site.Menus.main }}
+      <nav class="app-header-menu">
+        {{- range $key, $item := . }}
+          {{- if ne $key 0 }}
+            {{ $.Site.Params.menu_item_separator | default " - " | safeHTML }}
+          {{ end }}
+          <a class="app-header-menu-item" href="{{ $item.URL }}">{{ $item.Name }}</a>
+        {{- end }}
+      </nav>
+      {{- end }}
+      <p>{{ .Site.Params.description | safeHTML}}</p>
+      {{- with .Site.Params.social }}
+      <div class="app-header-social">
+        {{ range . }}
+          <a href="{{ .url }}" target="_blank" rel="noreferrer noopener me">
+            {{ partial "icon.html" (dict "ctx" $ "name" .icon "title" .name) }}
+          </a>
+        {{ end }}
+      </div>
+      {{- end }}
+
+      <!-- ===== 在一起天数卡片 ===== -->
+      <div class="love-card">
+        <div class="love-row">
+          <img class="love-avatar" src="/img/ds.png" alt="" />
+          <svg class="love-heart" viewBox="0 0 24 24" fill="#ff4d6d" aria-hidden="true">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          <img class="love-avatar" src="/img/ssnw.png" alt="" />
+        </div>
+        <div class="love-caption" id="love-days"></div>
+      </div>
+      <script>
+        (function () {
+          var start = new Date('2022-01-13T00:00:00+08:00').getTime();
+          var el = document.getElementById('love-days');
+          var days = Math.floor(Math.max(0, Date.now() - start) / 86400000);
+          el.innerHTML = '鼠友建立友谊 <b>' + days + '</b> 天';
+        })();
+      </script>
+      <style>
+        .love-card { margin-top: 18px; background: #353b43; border-radius: 14px; padding: 14px 12px; text-align: center; }
+        .love-row { display: flex; align-items: center; justify-content: center; gap: 14px; }
+        .love-avatar { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; }
+        .love-heart { width: 26px; height: 18px; position: relative; top: 5px; left: -1px;}
+        .love-caption { margin-top: 10px; font-size: 13px; color: #afbac4; }
+        .love-caption b { color: #ff4d6d; font-size: 15px; }
+      </style>
+      <!-- ===== 卡片结束 ===== -->
+    </header>
+    <main class="app-container">
+      {{ block "main" . }}
+        {{ .Content }}
+      {{ end }}
+    </main>
+  </body>
+</html>
