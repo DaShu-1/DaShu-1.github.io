@@ -1,0 +1,4 @@
+{{- $colors := dict "green" "#57cc8a" "red" "#e24b4a" "blue" "#378add" "orange" "#e8743b" "yellow" "#cacc57" -}}
+{{- $c := .Get 0 -}}
+{{- $c = index $colors $c | default $c -}}
+<span style="color: {{ $c }};">{{ .Get 1 }}</span>
